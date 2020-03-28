@@ -146,4 +146,13 @@ class DistanceTest extends TestCase {
 
         $this->assertEquals(200, $this->response->status());
     }
+
+    /**
+     * Test content type
+     */
+    public function testContentTypeAdd(): void {
+        $this->post('/api/v1/distance/add', []);
+
+        $this->assertEquals(406, $this->response->status());
+    }
 }
