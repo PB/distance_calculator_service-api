@@ -19,7 +19,7 @@ class JSONRequestMiddleware {
      */
     public function handle($request, Closure $next) {
         if (!$request->isJson()) {
-            return (new JsonResponse((new ResponseDTO([], false, 'Only JSON Payload')), JsonResponse::HTTP_NOT_ACCEPTABLE));
+            return new JsonResponse(new ResponseDTO([], false, 'Only JSON Payload'), JsonResponse::HTTP_NOT_ACCEPTABLE);
         }
 
         return $next($request);
