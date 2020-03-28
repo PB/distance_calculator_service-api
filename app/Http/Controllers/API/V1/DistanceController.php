@@ -29,23 +29,11 @@ class DistanceController extends Controller {
      */
     public function add(Request $request, DistanceManager $distanceManager): JsonResponse {
         try {
-            $distanceManager->add($request->all());
+            return (new JsonResponse((new ResponseDTO($distanceManager->add($request->all()), true))));
         } catch (\InvalidArgumentException $iae) {
             return (new JsonResponse((new ResponseDTO([], false, $iae->getMessage())), JsonResponse::HTTP_BAD_REQUEST));
-        } catch (\Throwable $t){
+        } catch (\Throwable $t) {
             return (new JsonResponse((new ResponseDTO([], false, 'Invalid data')), JsonResponse::HTTP_BAD_REQUEST));
         }
-
-        $mock = [
-            'meta' => [
-                'status' => 'success',
-                'version' => '1.0'
-            ],
-            'data' => [
-                'meters' => 7.74
-            ]
-        ];
-
-        return response()->json($mock);
     }
 }
