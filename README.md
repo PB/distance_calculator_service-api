@@ -10,3 +10,58 @@ Distance Calculator Service Api
 
 ## Serving application
 `php -S localhost:8000 -t public`
+
+## Interface
+### Example request payload
+POST: `/api/v1/distance/add`
+
+BODY: 
+```
+{
+	"input": [
+		{"meters": 5},
+		{"yards": 3}
+	],
+	"output": "meters"
+}
+```
+
+Input: distances you want to sum (can be more than two)
+
+Output: `meters` or `yards`
+
+Example Curl request:
+```curl -X POST \
+     http://localhost:8000/api/v1/distance/add \
+     -H 'Content-Type: application/json' \
+     -d '{
+   	"input": [
+   		{"meters": 5},
+   		{"yards": 3}
+   	],
+   	"output": "meters"
+   }'
+```
+
+### Example response
+BODY:
+```
+{
+    "meta": {
+        "status": "success",
+        "version": "1.0"
+    },
+    "data": {
+    	"meters": 7.73
+    }
+}
+```
+Error response:
+```
+{
+       "meta": {
+           "status": "failure",
+           "msg": "Error message"
+       }
+   }
+```
