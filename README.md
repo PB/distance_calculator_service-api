@@ -7,3 +7,6 @@ Distance Calculator Service Api
 3. Testes (I have mock of response so when I wrote the code I will know if it still works)
 4. Write code (finally)
 5. Final refactor (clean-up)
+
+## Serving application
+`php -S localhost:8000 -t public`
