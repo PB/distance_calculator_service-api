@@ -8,7 +8,6 @@ use App\Http\Response\Api\V1\ResponseDTO;
 use App\Logic\Distance\DistanceManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 
 class DistanceController extends Controller {
 
@@ -29,7 +28,6 @@ class DistanceController extends Controller {
      * @return JsonResponse
      */
     public function add(Request $request, DistanceManager $distanceManager): JsonResponse {
-
         try {
             $distanceManager->add($request->all());
         } catch (\InvalidArgumentException $iae) {
