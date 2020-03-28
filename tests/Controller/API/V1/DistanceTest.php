@@ -155,4 +155,38 @@ class DistanceTest extends TestCase {
 
         $this->assertEquals(406, $this->response->status());
     }
+
+    /**
+     * Test invalid payload
+     */
+    public function testInvalidPayloadAdd(): void {
+        $request = [
+            'Vinput' => [
+                ['yards' => 5],
+                ['yards' => 3]
+            ],
+            'output' => 'yards'
+        ];
+
+        $this->json('POST', '/api/v1/distance/add', $request);
+
+        $this->assertEquals(400, $this->response->status());
+    }
+
+    /**
+     * Test invalid payload fields
+     */
+    public function testInvalidPayloadFieldsAdd(): void {
+        $request = [
+            'input' => [
+                ['yards' => 5],
+                ['centimeters' => 3]
+            ],
+            'output' => 'yards'
+        ];
+
+        $this->json('POST', '/api/v1/distance/add', $request);
+
+        $this->assertEquals(400, $this->response->status());
+    }
 }

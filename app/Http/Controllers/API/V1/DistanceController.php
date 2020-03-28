@@ -4,8 +4,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Response\Api\V1\ResponseDTO;
+use App\Logic\Distance\DistanceManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class DistanceController extends Controller {
 
@@ -20,11 +23,21 @@ class DistanceController extends Controller {
      *  "output": "meters"
      * }
      *
-     * @param Request $request
+     * @param Request         $request
+     * @param DistanceManager $distanceManager
      *
      * @return JsonResponse
      */
-    public function add(Request $request): JsonResponse {
+    public function add(Request $request, DistanceManager $distanceManager): JsonResponse {
+
+        try {
+            $distanceManager->add($request->all());
+        } catch (\InvalidArgumentException $iae) {
+            return (new JsonResponse((new ResponseDTO([], false, $iae->getMessage())), JsonResponse::HTTP_BAD_REQUEST));
+        } catch (\Throwable $t){
+            return (new JsonResponse((new ResponseDTO([], false, 'Invalid data')), JsonResponse::HTTP_BAD_REQUEST));
+        }
+
         $mock = [
             'meta' => [
                 'status' => 'success',
