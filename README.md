@@ -9,6 +9,10 @@ Distance Calculator Service Api
 5. Final refactor (clean-up)
 
 ## Serving application
+Run `composer install`
+
+Rename `.env.example` to `.env`
+
 `php -S localhost:8000 -t public`
 
 ## Interface
